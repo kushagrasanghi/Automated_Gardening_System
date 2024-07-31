@@ -11,12 +11,13 @@ This, as stated earlier, is a basic automation and has the potential of growing 
 
 Project Overview
   -Microcontroller: Raspberry Pi
-  
   -Sensors: Soil moisture sensor, water level sensor
   
   -Functions:
     ~Automatically waters plants based on soil moisture and tank water level.
+    
     ~Controls artificial lighting based on light intensity.
+    
     ~Mobile app for manual control and real-time data monitoring.
     
   -Software and Tools:
