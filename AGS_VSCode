@@ -1,0 +1,184 @@
+import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Switch,
+  TouchableOpacity} 
+from 'react-native';
+import * as firebase from 'firebase';
+
+const firebaseConfig = {
+apiKey: '<api-key>',
+authDomain: "automatic-gardening-system.firebaseapp.com",
+databaseURL: "https://automatic-gardening-system.firebaseio.com", 
+storageBucket: "automatic-gardening-system.appspot.com"
+}
+
+firebase.initializeApp(firebaseConfig);
+export default function App() {
+const [customControl, setCustom] = useState(0);
+const [ledState, setLED] = useState(0);
+const [landMotor, setLM] = useState(0);
+const [moistureLevel, setML] = useState(0);
+const [lightIntensity, setLI] = useState(0);
+const [waterLevel, setWL] = useState(0);
+
+changeCustom = (value) => {
+  setCustom(value);
+  value = value ? 1 : 0;
+
+firebase.database().ref("/gardening-data").child("customControl")
+.set(value);
+}
+changeLed = (value) => {
+  value = value ? 1 : 0;
+ 
+firebase.database().ref('/gardening-data').child("ledState").set( value);
+}
+changeLM = (value) => {
+  value = value ? 1 : 0;
+
+firebase.database().ref('/gardening-data').child("landMotor").set (value);
+}
+useEffect(() => {
+
+firebase.database().ref('/gardening-data').child("moisture").on(' value', snap => {
+  setML(snap.val());
+  console.log(snap.val());
+});
+
+firebase.database().ref('/gardening-data').child("lightIntensity" ).on('value', snap => { 
+  setLI(snap.val());
+  console.log(snap.val());
+});
+
+
+firebase.database().ref('/gardening-data').child("waterLevel").on ('value', snap => {
+  setWL(snap.val());
+  console.log(snap.val());
+});
+
+
+firebase.database().ref('/gardening-data').child("ledState").on(' value', snap => {
+  setLED(snap.val());
+  console.log(snap.val());
+});
+
+firebase.database().ref('/gardening-data').child("landMotor").on( 'value', snap => {
+  setLM(snap.val());
+  console.log(snap.val());
+});
+}, []);
+ 
+return (
+  <View style={styles.container}>
+    <View style={styles.customStyle}>
+      <Text
+style={styles.customFont} > Customs Control </Text>
+  <Switch 
+  disabled={false}
+  onValueChange={changeCustom} 
+  value={customControl} 
+  style={{flex: 1, color: '#339CFF'}}>
+  </Switch>
+</View>
+<View style={styles.dataViewStyle}>
+<TouchableOpacity 
+style = { 
+  [styles.ButtonStyle,
+  {backgroundColor: !customControl ? '#8BBBE6' : '#339CFF'}]
+}
+activeOpacity = {.5} 
+disabled = {!customControl}
+onPress = {() => {changeLed(!ledState)}}
+>
+<View 
+style={{
+  flex: 1,
+  display: "flex", 
+  flexDirection: "column",
+  justifyContent: "space-between",
+}}>
+<Text
+style = {{color: "white", 
+  fontSize: 18, 
+  fontWeight: "bold"
+}}
+>Solar Light {"\n"}
+ 
+Light Intensity: {(lightIntensity*100).toFixed(2) + "%"} </Text>
+  <Text style = {{ 
+  color: "white", 
+  fontSize: 24,
+  }}> {ledState? "On": "Off"} </Text>
+  </View>
+</TouchableOpacity>
+
+<TouchableOpacity 
+style = { 
+[styles.ButtonStyle,
+{backgroundColor: !customControl || (waterLevel == 0) ? '#8BBBE6' : '#339CFF'}]
+}
+activeOpacity = {.5}
+disabled = {!customControl || (waterLevel == 0)} 
+onPress = {() => {changeLM(!landMotor)}}
+>
+<View 
+style={{ 
+flex: 1,
+display: "flex", 
+flexDirection: "column",
+justifyContent: "space-between",
+}}>
+<Text 
+style = {{
+color: "white", 
+fontSize: 18, 
+fontWeight: "bold"
+}}
+> Land Water {"\n"}
+{waterLevel ? " Tank is Not Empty\n ": " Tank Is Empty\n "} 
+Moisture: {moistureLevel + "%"} </Text>
+<Text style = {{ 
+color: "white", 
+fontSize: 24,
+}}> {landMotor? "Irrigating": "Off"} </Text>
+</View>
+</TouchableOpacity>
+ 
+</View>
+</View>
+);
+}
+
+const styles = StyleSheet.create({ container: {
+  margin: 10,
+  marginTop: 30, 
+  backgroundColor: '#fff',
+},
+customStyle: { 
+  display: "flex", 
+  flexDirection: "row", 
+  alignItems: "center",
+  justifyContent: "center"
+},
+
+customFont: { 
+  fontSize: 24, 
+  fontWeight: "bold", 
+  flex:1,
+},
+dataViewStyle: { 
+  display: "flex", 
+  flexDirection: "row",
+  justifyContent: "space-evenly"
+},
+ButtonStyle: { 
+  padding: 10,
+  borderRadius: 5,
+  marginTop: 20,
+  marginRight: 2.5,
+  marginLeft: 2.5,
+  height: 175,
+  width: 175}});
