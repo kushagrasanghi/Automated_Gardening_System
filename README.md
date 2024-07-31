@@ -10,7 +10,7 @@ We also check the intensity of light falling on the plants to turn on/off an art
 This, as stated earlier, is a basic automation and has the potential of growing and become better with time.
 
 Project Overview
-  -Microcontroller: Raspberry Pi
+  -Microcontroller: Raspberry Pi    
   -Sensors: Soil moisture sensor, water level sensor
   
   -Functions:
@@ -20,6 +20,7 @@ Project Overview
     ~Mobile app for manual control and real-time data monitoring.
     
   -Software and Tools:
+  
     -Python3: Scripts for interfacing Raspberry Pi with various components and the internet.
     -Visual Studio Code: Development environment for the app.
     -GPIO: Python library to send and receive signals from Raspberry Pi.
