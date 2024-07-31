@@ -8,3 +8,19 @@ A system which uses a microcontroller and some sensors for smart gardening. We u
 We also check the intensity of light falling on the plants to turn on/off an artificial sunlight source (led here for example).Besides this, if you still want custom control over your irrigation and light, we provide a mobile app, which not only enables you to custom control the light and motor, but also gives real time moisture level and light intensity data to choose what is best for your plants.
 
 This, as stated earlier, is a basic automation and has the potential of growing and become better with time.
+
+Project Overview
+  -Microcontroller: Raspberry Pi
+  
+  -Sensors: Soil moisture sensor, water level sensor
+  
+  -Functions:
+    ~Automatically waters plants based on soil moisture and tank water level.
+    ~Controls artificial lighting based on light intensity.
+    ~Mobile app for manual control and real-time data monitoring.
+    
+  -Software and Tools:
+    -Python3: Scripts for interfacing Raspberry Pi with various components and the internet.
+    -Visual Studio Code: Development environment for the app.
+    -GPIO: Python library to send and receive signals from Raspberry Pi.
+    -LightSensor: Python library for interfacing Raspberry Pi with LDR.
