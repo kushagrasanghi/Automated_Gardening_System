@@ -1,6 +1,6 @@
 #include<reg51.h>
 
-//Function declarations 
+//Function declarations  
 void cct_init(void);
 void delay(int); 
 void lcdinit(void); 
