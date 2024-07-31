@@ -6,4 +6,5 @@ But with growing concerns around resource management and water wastage, the curr
 A system which uses a microcontroller and some sensors for smart gardening. We use Raspberry PI, along with soil moisture sensor and water level sensor to automate the gardening system making it more efficient.We check the moisture of soil, and if it’s below a threshold we check the water tank level and if it’s above a certain minimum, water automatic starts pouring on the plants. It stops when either the threshold moisture level is attained or when the water level drops below the defined minimum.
 
 We also check the intensity of light falling on the plants to turn on/off an artificial sunlight source (led here for example).Besides this, if you still want custom control over your irrigation and light, we provide a mobile app, which not only enables you to custom control the light and motor, but also gives real time moisture level and light intensity data to choose what is best for your plants.
+
 This, as stated earlier, is a basic automation and has the potential of growing and become better with time.
