@@ -1,6 +1,6 @@
 from gpiozero import LightSensor 
 from numpy import interp 
-import Adafruit_CharLCD as LCD 
+import Adafruit_CharLCD as LCD
 import RPi.GPIO as GPIO
 import time 
 import spidev
