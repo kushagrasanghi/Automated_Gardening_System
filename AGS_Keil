@@ -1,0 +1,110 @@
+#include<reg51.h>
+
+//Function declarations 
+void cct_init(void);
+void delay(int); 
+void lcdinit(void); 
+void writecmd(int);
+void writedata(char); 
+void ReturnHome(void);
+
+// Defines Pins 
+sbit RS = P1^0; 
+sbit E = P1^1; 
+sbit BLED = P1^5; 
+sbit GLED = P1^3;
+sbit MOTOR = P1^7; 
+sbit RLED = P1^2;
+
+// Main program 
+void main(void)
+{
+  cct_init();
+  lcdinit(); 
+  writecmd(0x81); 
+  writedata('A');
+  writedata('u');
+  writedata('t');
+  writedata('o');
+  writedata('m');
+  writedata('a');
+  writedata('t');
+  writedata('i');
+  writedata('c');
+  writedata(' ');
+  writedata('G');
+  writedata('a');
+  writedata('r');
+  writedata('d');
+  writedata('e');
+  writedata('n');
+  writedata('i');
+  writedata('n');
+  writedata('g'); 
+  writecmd(0xc4);
+
+  writedata('S');
+  writedata('y');
+  writedata('s');
+  writedata('t');
+  writedata('e');
+  writedata('m');
+  ReturnHome();
+ 
+void cct_init(void)
+{
+P0 = 0x00; 
+P1 = 0x00; 
+P2 = 0x00; 
+P3 = 0x00;
+}
+void delay(int a)
+{
+  int i; 
+  for(i=0;i<a;i++);
+}
+void writedata(char t)
+{
+  GLED=1;
+  BLED=1;
+  MOTOR=1;
+  RLED=1;
+  RS = 1;
+  P2 = t;
+  E = 1;
+delay(150);
+E = 0;
+delay(150);
+}
+void writecmd(int z)
+{
+    GLED=1;
+    BLED=1;
+    MOTOR=1; 
+    RLED=1; 
+    RS = 0;
+    P2 = z;
+    E = 1;
+  delay(150);
+  E = 0;
+  delay(150);
+}
+void lcdinit(void)
+{
+delay(15000); 
+writecmd(0x30); 
+delay(4500); 
+writecmd(0x30); 
+delay(300); 
+writecmd(0x30); 
+delay(650); 
+writecmd(0x38); 
+writecmd(0x0c); 
+writecmd(0x01); 
+writecmd(0x06);
+}
+void ReturnHome(void)
+{
+writecmd(0x02); 
+delay(1500);
+}
